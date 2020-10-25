@@ -8,6 +8,7 @@ from django.http import Http404
 import datetime
 
 
+
 @api_view(['GET'])
 def tweets(request):
 	all_tweets=Tweet.objects.none()
