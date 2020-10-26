@@ -73,9 +73,6 @@ class FollowingSerializer(serializers.Serializer):
 	username=serializers.SerializerMethodField(read_only=True)
 	following=serializers.SerializerMethodField(read_only=True)
 	
-	class Meta:
-		model=Follower
-		fields=['username','following']
 	def get_username(self,obj):
 		user = self.context.get("user")
 		print(user)
