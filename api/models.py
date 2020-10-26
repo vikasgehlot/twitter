@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
+
+#Here follower indicates the people followed by the request user
 class Follower(models.Model):
 	username=models.OneToOneField(User,null=True,on_delete=models.CASCADE )
 	followers=models.ManyToManyField(User,related_name='follow',blank=True)

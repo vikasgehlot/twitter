@@ -57,7 +57,7 @@ class TweetDetailSerializer(serializers.ModelSerializer):
 		return list(set(query) & set(following)) 
 
 
-
+#To get all the users following the request user
 class FollowerSerializer(serializers.ModelSerializer):
 	username=serializers.StringRelatedField(many=False)
 	followers=serializers.StringRelatedField(many=True)
@@ -68,7 +68,7 @@ class FollowerSerializer(serializers.ModelSerializer):
 
 
 
-
+#To get all the users followed by request user
 class FollowingSerializer(serializers.Serializer):
 	username=serializers.SerializerMethodField(read_only=True)
 	following=serializers.SerializerMethodField(read_only=True)
