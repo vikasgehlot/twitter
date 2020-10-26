@@ -9,15 +9,21 @@ import datetime
 
 
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def tweets(request):
-	all_tweets=Tweet.objects.none()
-	timeline=datetime.datetime.now()-datetime.timedelta(days=1)
-	following_tweets=Tweet.objects.filter(author__in=[query.username for query in request.user.follow.all()],created__gt=timeline)
-	my_tweets=Tweet.objects.filter(author =request.user, created__gt=timeline)
-	all_tweets=following_tweets.union(my_tweets)
-	serilaizer=TweetSerializer(all_tweets.order_by('-created'),many=True)
-	return Response(serilaizer.data)
+	if request.method=='GET':
+		all_tweets=Tweet.objects.none()
+		timeline=datetime.datetime.now()-datetime.timedelta(days=1)
+		following_tweets=Tweet.objects.filter(author__in=[query.username for query in request.user.follow.all()],created__gt=timeline)
+		my_tweets=Tweet.objects.filter(author =request.user, created__gt=timeline)
+		all_tweets=following_tweets.union(my_tweets)
+		serilaizer=TweetSerializer(all_tweets.order_by('-created'),many=True)
+		return Response(serilaizer.data)
+	else:
+		print(request.data)
+		return Response(status=status.HTTP_202_ACCEPTED)
+		# serializer =TweetSerializer(data=request.data)
+
 
 
 @api_view(['GET'])
