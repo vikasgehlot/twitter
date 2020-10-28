@@ -4,16 +4,25 @@ from django.contrib.auth.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+	password = serializers.CharField(write_only=True)
 	
 	class Meta:
 		model=User
-		fields=['id','username']
-
+		fields=['id','username','password']
+		
+	
+	def create(self, validated_data):
+		user=super(UserSerializer, self).create(validated_data)
+		print("validated_data",validated_data)
+		user.set_password(validated_data['password'])
+		user.save()
+		return user
 
 class TweetSerializer(serializers.ModelSerializer):
 	likes=serializers.SerializerMethodField(read_only=True)
 	retweets=serializers.SerializerMethodField(read_only=True)
 	author= serializers.StringRelatedField(many=False)
+	# author= serializers.IntegerField(write_only=True)
 	class Meta:
 		model=Tweet
 		fields=['id','tweet','author','likes','retweets']
@@ -23,6 +32,13 @@ class TweetSerializer(serializers.ModelSerializer):
 
 	def get_retweets(self,obj):
 		return obj.retweets.count()
+
+	def create(self, validated_data):
+		# print("validated_data=", validated_data['author'])
+		request = self.context.get("request")
+		print("request.user",request.user)
+		validated_data['author']=request.user
+		return Tweet.objects.create(**validated_data)
 
 
 

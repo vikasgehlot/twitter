@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 
 urlpatterns=[
@@ -17,7 +17,13 @@ urlpatterns=[
 	path('tweets/<int:id>/unlike/',views.unlike),
 	path('tweets/<int:id>/retweet/',views.retweet),
 	path('tweets/<int:id>/unretweet/',views.unretweet),
+	path('tweets/<int:id>/delete/',views.delete),
+	path('deleteme/',views.delete_user),
+	path('auth/', include('rest_framework.urls')),
+	# path('login/',views.login)
+	# path('profile/',views.profile)
 
 	
 
 ]
+

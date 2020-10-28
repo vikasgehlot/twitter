@@ -1,5 +1,9 @@
 API endpoints
 
+User can be added at /api/user/
+tweets can be added at /api/tweets/
+User can login to acces it from Browser now
+
 Basic Authentication is used 
 
 1) /api/tweets/
@@ -77,3 +81,8 @@ Basic Authentication is used
 Additional endpoints
 api/follow/username To follow a user
 api/unfolow/username  To unfollow a user
+
+
+User can be added at /api/user/
+tweets can be added at /api/tweets/
+User can login to acces it from Browser now

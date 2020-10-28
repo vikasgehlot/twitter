@@ -14,9 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.shortcuts import render
 from django.urls import path,include
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+
+
+def home(request):
+	return HttpResponse("<div><h3>Create User at /api/user/</h3></div><div><h3> Already a user Login /api/auth/login/</h3></div>")
+
+def profile(request):
+	if request.user not in User.objects.all():
+		return HttpResponse("<h3>NOT a Authenticated user<h3>")
+	print(request.user)
+	return HttpResponse("<h3>Login Successful<h3>")
+
 
 urlpatterns = [
+	path('',home),
     path('admin/', admin.site.urls),
-    path('api/',include('api.urls'))
+    path('api/',include('api.urls')),
+	path('accounts/profile/',profile)
 ]
