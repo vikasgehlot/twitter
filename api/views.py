@@ -252,6 +252,5 @@ def user(request):
 		serilaizer=UserSerializer(user,many=True)
 		return Response(serilaizer.data)
 
-
-      
+# Test how pull works
 
