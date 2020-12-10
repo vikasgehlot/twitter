@@ -31,6 +31,11 @@ class Tweet(models.Model):
 		return self.tweet
 
 
+class Reach(models.Model):
+	tweet=models.ForeignKey(Tweet, related_name='tweet_reach')
+	viewed=models.IntegerField()
+
+
 
 	
 
